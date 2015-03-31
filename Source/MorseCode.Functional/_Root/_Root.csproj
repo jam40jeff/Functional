@@ -151,6 +151,7 @@
     <Compile Include="DiscriminatedUnion\IDiscriminatedUnion{TCommon,T1,T2,T3}.cs" />
     <Compile Include="DiscriminatedUnion\IDiscriminatedUnion{TCommon,T1,T2}.cs" />
     <Compile Include="FunctionalExtensionMethods.cs" />
+    <Compile Include="Maybe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
