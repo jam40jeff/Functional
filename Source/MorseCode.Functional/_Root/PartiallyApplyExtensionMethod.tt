@@ -1,0 +1,85 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="Utilities.ttinclude" #><#@ output extension=".cs" #>
+#region License
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PartiallyApplyExtensionMethod.cs" company="MorseCode Software">
+// Copyright (c) 2015 MorseCode Software
+// </copyright>
+// <summary>
+// The MIT License (MIT)
+// 
+// Copyright (c) 2015 MorseCode Software
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion
+
+namespace MorseCode.Functional
+{
+    using System;
+
+    /// <summary>
+    /// Provides a partial application extension method, which can be called on a function to partially apply some or all of its parameters to
+    /// produce a new function delegate.
+    /// </summary>
+    public static class PartiallyApplyExtensionMethod
+    {
+        #region Public Methods and Operators
+<# Enumerable.Range(1, MaximumNumberOfParameters).ToList().ForEach(currentNumberOfParameters => { #>
+<# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentNumberOfParametersToPartiallyApply => { #>
+
+        /// <summary>
+        /// Partially applies the first <#= GetNumberString(currentNumberOfParametersToPartiallyApply) #> parameters for a function delegate with <#= GetNumberString(currentNumberOfParameters) #> parameters.
+        /// </summary>
+        /// <param name="func">
+        /// The function delegate to which to partially apply parameters.
+        /// </param>
+<# Enumerable.Range(1, currentNumberOfParametersToPartiallyApply).ToList().ForEach(i => { #>
+        /// <param name="<#= GetOrdinalString(i) #>Argument">
+        /// The value of the <#= GetOrdinalString(i) #> parameter to partially apply.
+        /// </param>
+<# }); #>
+<# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(i => { #>
+        /// <typeparam name="T<#= i #>">
+        /// The type of the <#= GetOrdinalString(i) #> parameter.
+        /// </typeparam>
+<# }); #>
+        /// <typeparam name="TResult">
+        /// The type of the return value.
+        /// </typeparam>
+        /// <returns>
+        /// A function delegate with <#= currentNumberOfParameters - currentNumberOfParametersToPartiallyApply == 0 ? "no" : GetNumberString(currentNumberOfParameters - currentNumberOfParametersToPartiallyApply) #> parameters which is a result of
+        /// partially applying the first <#= GetNumberString(currentNumberOfParametersToPartiallyApply) #> parameters to <paramref name="func"/>.
+        /// </returns>
+        public static Func<<#= string.Join(string.Empty, Enumerable.Range(1, currentNumberOfParameters).Skip(currentNumberOfParametersToPartiallyApply).Select(i => "T" + i + ", ")) #>TResult> PartiallyApply<<#= string.Join(string.Empty, Enumerable.Range(1, currentNumberOfParameters).Select(i => "T" + i + ", ")) #>TResult>(this Func<<#= string.Join(string.Empty, Enumerable.Range(1, currentNumberOfParameters).Select(i => "T" + i + ", ")) #>TResult> func<#= string.Join(string.Empty, Enumerable.Range(1, currentNumberOfParametersToPartiallyApply).Select(i => ", T" + i + " " + GetOrdinalString(i) + "Argument")) #>)
+        {
+            return <# if(currentNumberOfParameters - currentNumberOfParametersToPartiallyApply == 1) { #><#= GetLetter(1) #><# } else { #>(<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Skip(currentNumberOfParametersToPartiallyApply).Select(i => GetLetter(i - currentNumberOfParametersToPartiallyApply))) #>)<# } #> => func(<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParametersToPartiallyApply).Select(i => GetOrdinalString(i) + "Argument")) #><#= string.Join(string.Empty, Enumerable.Range(1, currentNumberOfParameters).Skip(currentNumberOfParametersToPartiallyApply).Select(i => ", " + GetLetter(i - currentNumberOfParametersToPartiallyApply))) #>);
+        }
+<# }); #>
+<# }); #>
+
+        #endregion
+    }
+}

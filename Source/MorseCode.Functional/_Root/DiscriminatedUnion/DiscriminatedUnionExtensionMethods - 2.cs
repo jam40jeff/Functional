@@ -1,15 +1,33 @@
 #region License
 
-// Copyright 2014 MorseCode Software
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//     http://www.apache.org/licenses/LICENSE-2.0
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DiscriminatedUnionExtensionMethods - 2.cs" company="MorseCode Software">
+// Copyright (c) 2015 MorseCode Software
+// </copyright>
+// <summary>
+// The MIT License (MIT)
+// 
+// Copyright (c) 2015 MorseCode Software
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 #endregion
 
 namespace MorseCode.Functional.DiscriminatedUnion
@@ -17,11 +35,15 @@ namespace MorseCode.Functional.DiscriminatedUnion
     using System;
     using System.Diagnostics.Contracts;
 
+    using MorseCode.BetterReflection;
+
     /// <summary>
     /// Discriminated union extension methods.
     /// </summary>
     public static partial class DiscriminatedUnionExtensionMethods
     {
+        #region Public Methods and Operators
+
         /// <summary>
         /// Creates a new instance of a discriminated union with a value of type <typeparamref name="T1"/>.
         /// </summary>
@@ -44,7 +66,9 @@ namespace MorseCode.Functional.DiscriminatedUnion
         /// The new instance of a discriminated union.
         /// </returns>
         public static IDiscriminatedUnion<TCommon, T1, T2> CreateFirst<TCommon, T1, T2>(
-            this IDiscriminatedUnion<TCommon, T1, T2> o, T1 value) where T1 : TCommon where T2 : TCommon
+            this IDiscriminatedUnion<TCommon, T1, T2> o, T1 value)
+            where T1 : TCommon
+            where T2 : TCommon
             where TCommon : class
         {
             Contract.Ensures(Contract.Result<IDiscriminatedUnion<TCommon, T1, T2>>() != null);
@@ -74,7 +98,9 @@ namespace MorseCode.Functional.DiscriminatedUnion
         /// The new instance of a discriminated union.
         /// </returns>
         public static IDiscriminatedUnion<TCommon, T1, T2> CreateSecond<TCommon, T1, T2>(
-            this IDiscriminatedUnion<TCommon, T1, T2> o, T2 value) where T1 : TCommon where T2 : TCommon
+            this IDiscriminatedUnion<TCommon, T1, T2> o, T2 value)
+            where T1 : TCommon
+            where T2 : TCommon
             where TCommon : class
         {
             Contract.Ensures(Contract.Result<IDiscriminatedUnion<TCommon, T1, T2>>() != null);
@@ -112,9 +138,8 @@ namespace MorseCode.Functional.DiscriminatedUnion
             if (discriminatedUnion == null)
             {
                 throw new InvalidOperationException(
-                    "Result of "
-                    + StaticReflection<IDiscriminatedUnion<object, IDiscriminatedUnion<object, T1, T2>, T2>>
-                          .GetMethodInfo(o2 => o2.Switch(null, null)).Name + " cannot be null.");
+                    "Result of " +
+                    StaticReflection<IDiscriminatedUnion<object, IDiscriminatedUnion<object, T1, T2>, T2>>.GetMethodName(o2 => o2.Switch(null, null)) + " cannot be null.");
             }
 
             return discriminatedUnion;
@@ -150,10 +175,12 @@ namespace MorseCode.Functional.DiscriminatedUnion
                 throw new InvalidOperationException(
                     "Result of "
                     + StaticReflection<IDiscriminatedUnion<object, T1, IDiscriminatedUnion<object, T1, T2>>>
-                          .GetMethodInfo(o2 => o2.Switch(null, null)).Name + " cannot be null.");
+                          .GetMethodName(o2 => o2.Switch(null, null)) + " cannot be null.");
             }
 
             return discriminatedUnion;
         }
+
+        #endregion
     }
 }

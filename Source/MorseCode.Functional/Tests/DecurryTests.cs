@@ -1,7 +1,7 @@
 ﻿#region License
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Maybe.cs" company="MorseCode Software">
+// <copyright file="DecurryTests.cs" company="MorseCode Software">
 // Copyright (c) 2015 MorseCode Software
 // </copyright>
 // <summary>
@@ -30,20 +30,27 @@
 // --------------------------------------------------------------------------------------------------------------------
 #endregion
 
-namespace MorseCode.Functional
+namespace Tests
 {
-    public static class Maybe
+    using System;
+
+    using MorseCode.Functional;
+
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class DecurryTests
     {
         #region Public Methods and Operators
 
-        public static IMaybe<T> Just<T>(T value)
+        [Test]
+        public void DecurryFourArguments()
         {
-            return new Maybe<T>(value);
-        }
+            Func<int, Func<int, Func<int, Func<int, int>>>> addCurried = a => b => c => d => a + b + c + d;
+            Func<int, int, int, int, int> add = addCurried.Decurry();
 
-        public static IMaybe<T> Nothing<T>()
-        {
-            return Maybe<T>.Nothing;
+            Assert.AreEqual(11, add(5, 3, 1, 2));
+            Assert.AreEqual(15, add(5, 3, 3, 4));
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿#region License
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Maybe.cs" company="MorseCode Software">
+// <copyright file="ComposeTests.cs" company="MorseCode Software">
 // Copyright (c) 2015 MorseCode Software
 // </copyright>
 // <summary>
@@ -30,20 +30,47 @@
 // --------------------------------------------------------------------------------------------------------------------
 #endregion
 
-namespace MorseCode.Functional
+namespace Tests
 {
-    public static class Maybe
+    using System;
+
+    using MorseCode.Functional;
+
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class ComposeTests
     {
         #region Public Methods and Operators
 
-        public static IMaybe<T> Just<T>(T value)
+        [Test]
+        public void ComposeWithNoArguments()
         {
-            return new Maybe<T>(value);
+            Func<int, int> square = x => x * x;
+            Func<int> return5 = () => 5;
+            Func<int> squareDotReturn5 = square.Compose(return5);
+
+            Assert.AreEqual(25, squareDotReturn5());
         }
 
-        public static IMaybe<T> Nothing<T>()
+        [Test]
+        public void ComposeWithOneArgument()
         {
-            return Maybe<T>.Nothing;
+            Func<int, int> square = x => x * x;
+            Func<int, int> add5 = x => x + 5;
+            Func<int, int> squareDotAdd5 = square.Compose(add5);
+
+            Assert.AreEqual(81, squareDotAdd5(4));
+        }
+
+        [Test]
+        public void ComposeWithTwoArguments()
+        {
+            Func<int, int> square = x => x * x;
+            Func<int, int, int> add = (a, b) => a + b;
+            Func<int, int, int> squareDotAdd = square.Compose(add);
+
+            Assert.AreEqual(64, squareDotAdd(5, 3));
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿#region License
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Maybe.cs" company="MorseCode Software">
+// <copyright file="MaybeMonad.cs" company="MorseCode Software">
 // Copyright (c) 2015 MorseCode Software
 // </copyright>
 // <summary>
@@ -32,18 +32,25 @@
 
 namespace MorseCode.Functional
 {
-    public static class Maybe
+    using System;
+
+    public static class MaybeMonad
     {
         #region Public Methods and Operators
 
-        public static IMaybe<T> Just<T>(T value)
+        public static IMaybe<TResult> Bind<T, TResult>(this IMaybe<T> value, Func<T, IMaybe<TResult>> transformation)
         {
-            return new Maybe<T>(value);
+            return value.Switch(transformation, Maybe.Nothing<TResult>);
         }
 
-        public static IMaybe<T> Nothing<T>()
+        public static IMaybe<T> Return<T>(T value)
         {
-            return Maybe<T>.Nothing;
+            return Maybe.Just(value);
+        }
+
+        public static IMaybe<TResult> SelectMany<T1, T2, TResult>(this IMaybe<T1> value, Func<T1, IMaybe<T2>> transformation, Func<T1, T2, TResult> collation)
+        {
+            return value.Bind(firstValue => transformation(firstValue).Bind(secondValue => Maybe.Just(collation(firstValue, secondValue))));
         }
 
         #endregion

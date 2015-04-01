@@ -126,6 +126,17 @@
     <AssemblyOriginatorKeyFile>..\MorseCode.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MorseCode.BetterReflection, Version=1.0.11.0, Culture=neutral, PublicKeyToken=214321fcab92c5da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MorseCode.BetterReflection.1.0.11.0\lib\net45\MorseCode.BetterReflection.dll</HintPath>
+    </Reference>
+    <Reference Include="MorseCode.FrameworkExtensions, Version=1.0.27.0, Culture=neutral, PublicKeyToken=214321fcab92c5da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MorseCode.FrameworkExtensions.1.0.27.0\lib\net45\MorseCode.FrameworkExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="MorseCode.ITask">
+      <HintPath>..\packages\MorseCode.ITask.1.0.29.0\lib\net45\MorseCode.ITask.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -135,6 +146,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComposeExtensionMethod.cs">
+      <DependentUpon>ComposeExtensionMethod.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="PartiallyApplyExtensionMethod.cs">
+      <DependentUpon>PartiallyApplyExtensionMethod.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DecurryExtensionMethod.cs">
+      <DependentUpon>DecurryExtensionMethod.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="CurryExtensionMethod.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CurryExtensionMethod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaybeMonad.cs" />
+    <Compile Include="Maybe{T}.cs" />
     <Compile Include="DiscriminatedUnion\DiscriminatedUnion - 2.cs" />
     <Compile Include="DiscriminatedUnion\DiscriminatedUnion - 3.cs" />
     <Compile Include="DiscriminatedUnion\DiscriminatedUnionContract{TCommon,T1,T2,T3}.cs" />
@@ -151,7 +184,8 @@
     <Compile Include="DiscriminatedUnion\IDiscriminatedUnionSimple{T1,T2}.cs" />
     <Compile Include="DiscriminatedUnion\IDiscriminatedUnion{TCommon,T1,T2,T3}.cs" />
     <Compile Include="DiscriminatedUnion\IDiscriminatedUnion{TCommon,T1,T2}.cs" />
-    <Compile Include="FunctionalExtensionMethods.cs" />
+    <Compile Include="FlipExtensionMethod.cs" />
+    <Compile Include="IMaybe{T}.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -164,6 +198,30 @@
     <None Include="..\MorseCode.snk">
       <Link>MorseCode.snk</Link>
     </None>
+    <None Include="app.config" />
+    <None Include="ComposeExtensionMethod.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ComposeExtensionMethod.cs</LastGenOutput>
+    </None>
+    <None Include="PartiallyApplyExtensionMethod.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartiallyApplyExtensionMethod.cs</LastGenOutput>
+    </None>
+    <None Include="DecurryExtensionMethod.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DecurryExtensionMethod.cs</LastGenOutput>
+    </None>
+    <None Include="CurryExtensionMethod.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryExtensionMethod.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="TemplateFileManager.ttinclude" />
+    <None Include="Utilities.ttinclude" />
+    <None Include="_Root.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

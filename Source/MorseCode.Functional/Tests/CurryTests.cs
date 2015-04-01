@@ -1,7 +1,7 @@
 ﻿#region License
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Maybe.cs" company="MorseCode Software">
+// <copyright file="CurryTests.cs" company="MorseCode Software">
 // Copyright (c) 2015 MorseCode Software
 // </copyright>
 // <summary>
@@ -30,20 +30,28 @@
 // --------------------------------------------------------------------------------------------------------------------
 #endregion
 
-namespace MorseCode.Functional
+namespace Tests
 {
-    public static class Maybe
+    using System;
+
+    using MorseCode.Functional;
+
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class CurryTests
     {
         #region Public Methods and Operators
 
-        public static IMaybe<T> Just<T>(T value)
+        [Test]
+        public void CurryFourArguments()
         {
-            return new Maybe<T>(value);
-        }
+            Func<int, int, int, int, int> add = (a, b, c, d) => a + b + c + d;
+            Func<int, Func<int, Func<int, Func<int, int>>>> addCurried = add.Curry();
+            Func<int, Func<int, int>> addToFiveAndThree = addCurried(5)(3);
 
-        public static IMaybe<T> Nothing<T>()
-        {
-            return Maybe<T>.Nothing;
+            Assert.AreEqual(11, addToFiveAndThree(1)(2));
+            Assert.AreEqual(15, addToFiveAndThree(3)(4));
         }
 
         #endregion

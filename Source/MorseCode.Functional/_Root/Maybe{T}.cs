@@ -1,7 +1,7 @@
 ﻿#region License
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Maybe.cs" company="MorseCode Software">
+// <copyright file="Maybe{T}.cs" company="MorseCode Software">
 // Copyright (c) 2015 MorseCode Software
 // </copyright>
 // <summary>
@@ -32,18 +32,71 @@
 
 namespace MorseCode.Functional
 {
-    public static class Maybe
-    {
-        #region Public Methods and Operators
+    using System;
 
-        public static IMaybe<T> Just<T>(T value)
+    using MorseCode.FrameworkExtensions;
+
+    internal class Maybe<T> : IMaybe<T>
+    {
+        #region Static Fields
+
+        public static readonly Maybe<T> Nothing = new Maybe<T>();
+
+        #endregion
+
+        #region Fields
+
+        private readonly bool hasValue;
+
+        private readonly IMaybe<T> thisMaybe;
+
+        private readonly T value;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        internal Maybe(T value)
         {
-            return new Maybe<T>(value);
+            this.thisMaybe = this;
+
+            this.hasValue = true;
+            this.value = value;
         }
 
-        public static IMaybe<T> Nothing<T>()
+        private Maybe()
         {
-            return Maybe<T>.Nothing;
+            this.thisMaybe = this;
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public override string ToString()
+        {
+            return this.thisMaybe.Switch(v => "Just: " + v.SafeToString(), () => "Nothing");
+        }
+
+        #endregion
+
+        #region Explicit Interface Methods
+
+        void IMaybe<T>.Switch<TReturn>(Action<T> hasValueAction, Action nothingAction)
+        {
+            if (this.hasValue)
+            {
+                hasValueAction(this.value);
+            }
+            else
+            {
+                nothingAction();
+            }
+        }
+
+        TReturn IMaybe<T>.Switch<TReturn>(Func<T, TReturn> hasValueFunc, Func<TReturn> nothingFunc)
+        {
+            return this.hasValue ? hasValueFunc(this.value) : nothingFunc();
         }
 
         #endregion

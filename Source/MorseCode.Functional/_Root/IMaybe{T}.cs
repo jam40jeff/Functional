@@ -1,7 +1,7 @@
 ﻿#region License
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Maybe.cs" company="MorseCode Software">
+// <copyright file="IMaybe{T}.cs" company="MorseCode Software">
 // Copyright (c) 2015 MorseCode Software
 // </copyright>
 // <summary>
@@ -32,19 +32,15 @@
 
 namespace MorseCode.Functional
 {
-    public static class Maybe
+    using System;
+
+    public interface IMaybe<out T>
     {
         #region Public Methods and Operators
 
-        public static IMaybe<T> Just<T>(T value)
-        {
-            return new Maybe<T>(value);
-        }
+        void Switch<TReturn>(Action<T> hasValueAction, Action nothingAction);
 
-        public static IMaybe<T> Nothing<T>()
-        {
-            return Maybe<T>.Nothing;
-        }
+        TReturn Switch<TReturn>(Func<T, TReturn> hasValueFunc, Func<TReturn> nothingFunc);
 
         #endregion
     }

@@ -1,0 +1,82 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="Utilities.ttinclude" #><#@ output extension=".cs" #>
+#region License
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ComposeExtensionMethod.cs" company="MorseCode Software">
+// Copyright (c) 2015 MorseCode Software
+// </copyright>
+// <summary>
+// The MIT License (MIT)
+// 
+// Copyright (c) 2015 MorseCode Software
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion
+
+namespace MorseCode.Functional
+{
+    using System;
+
+    /// <summary>
+    /// Provides the compose extension method, which can be called on a function to compose it with a second function.
+    /// </summary>
+    public static class ComposeExtensionMethod
+    {
+        #region Public Methods and Operators
+<# Enumerable.Range(0, MaximumNumberOfParameters + 1).ToList().ForEach(n => { #>
+
+        /// <summary>
+        /// Composes the function delegate with a second function whose input is the output of the first function.
+        /// </summary>
+        /// <param name="firstFunc">
+        /// The first function delegate to compose.
+        /// </param>
+        /// <param name="secondFunc">
+        /// The second function delegate to compose.
+        /// </param>
+<# Enumerable.Range(1, n).ToList().ForEach(i => { #>
+        /// <typeparam name="T<#= i #>">
+        /// The type of the <#= GetOrdinalString(i) #> parameter of <paramref name="secondFunc"/>.
+        /// </typeparam>
+<# }); #>
+        /// <typeparam name="TIntermediateResult">
+        /// The type of the intermediate return value, which is the return value of <paramref name="secondFunc"/> and the input to <paramref name="firstFunc"/>.
+        /// </typeparam>
+        /// <typeparam name="TResult">
+        /// The type of the return value, which is also the return value of <paramref name="firstFunc"/>.
+        /// </typeparam>
+        /// <returns>
+        /// A composed function delegate which is the result of applying the result of <paramref name="secondFunc"/> to <paramref name="firstFunc"/>.
+        /// </returns>
+        public static Func<<#= string.Join(string.Empty, Enumerable.Range(1, n).Select(i => "T" + i + ", ")) #>TResult> Compose<<#= string.Join(string.Empty, Enumerable.Range(1, n).Select(i => "T" + i + ", ")) #>TIntermediateResult, TResult>(this Func<TIntermediateResult, TResult> firstFunc, Func<<#= string.Join(string.Empty, Enumerable.Range(1, n).Select(i => "T" + i + ", ")) #>TIntermediateResult> secondFunc)
+        {
+            return <# if(n == 1) { #><#= GetLetter(1) #><# } else { #>(<#= string.Join(", ", Enumerable.Range(1, n).Select(GetLetter)) #>)<# } #> => firstFunc(secondFunc(<#= string.Join(", ", Enumerable.Range(1, n).Select(GetLetter)) #>));
+        }
+<# }); #>
+
+        #endregion
+    }
+}
