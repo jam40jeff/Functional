@@ -5,6 +5,8 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#+
 private const int MaximumNumberOfParameters = 16;
+private const int MaximumNumberOfParametersForVariant = 8;
+private const int MaximumNumberOfParametersForVariantFlatten = 4;
 
 private string GetOrdinalString(int n)
 {

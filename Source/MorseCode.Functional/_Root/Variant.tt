@@ -48,7 +48,7 @@ namespace MorseCode.Functional
     public static class Variant
     {
         #region Public Methods and Operators
-<# Enumerable.Range(2, MaximumNumberOfParameters - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(2, MaximumNumberOfParametersForVariant - 1).ToList().ForEach(currentNumberOfParameters => {#>
 <# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentParameterNumber => {#>
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace MorseCode.Functional
         }
 <# }); #>
 <# }); #>
-<# Enumerable.Range(2, MaximumNumberOfParameters - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(2, MaximumNumberOfParametersForVariant - 1).ToList().ForEach(currentNumberOfParameters => {#>
 <# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentParameterNumber => {#>
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace MorseCode.Functional
 <# }); #>
 
         #endregion
-<# Enumerable.Range(2, MaximumNumberOfParameters - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(2, MaximumNumberOfParametersForVariant - 1).ToList().ForEach(currentNumberOfParameters => {#>
 <# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentParameterNumber => {#>
 
         private class VariantWithCommonClassWith<#= CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(currentParameterNumber)) #><T, <#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>> : IVariantWithCommon<T, <#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>
@@ -181,7 +181,7 @@ namespace MorseCode.Functional
         }
 <# }); #>
 <# }); #>
-<# Enumerable.Range(2, MaximumNumberOfParameters - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(2, MaximumNumberOfParametersForVariant - 1).ToList().ForEach(currentNumberOfParameters => {#>
 <# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentParameterNumber => {#>
 
         private class VariantClassWith<#= CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(currentParameterNumber)) #><<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>> : VariantWithCommonClassWith<#= CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(currentParameterNumber)) #><object, <#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>, IVariant<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>

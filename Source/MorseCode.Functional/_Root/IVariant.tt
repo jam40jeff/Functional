@@ -6,7 +6,7 @@
 <#@ include file="TemplateFileManager.ttinclude" #><#@ include file="Utilities.ttinclude" #><#@ output extension=".cs" #>
 <#
 TemplateFileManager manager = TemplateFileManager.Create(this);
-for(int currentNumberOfParameters = 2; currentNumberOfParameters <= MaximumNumberOfParameters; currentNumberOfParameters++)
+for(int currentNumberOfParameters = 2; currentNumberOfParameters <= MaximumNumberOfParametersForVariant; currentNumberOfParameters++)
 {
     manager.StartNewFile("IVariant{" + string.Join(",", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) + "}.cs");
 #>

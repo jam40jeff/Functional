@@ -47,7 +47,7 @@ namespace MorseCode.Functional
     public static class VariantCreateNewExtensionMethods
     {
         #region Public Methods and Operators
-<# Enumerable.Range(2, MaximumNumberOfParameters - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(2, MaximumNumberOfParametersForVariant - 1).ToList().ForEach(currentNumberOfParameters => {#>
 <# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentParameterNumber => {#>
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace MorseCode.Functional
         }
 <# }); #>
 <# }); #>
-<# Enumerable.Range(2, MaximumNumberOfParameters - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(2, MaximumNumberOfParametersForVariant - 1).ToList().ForEach(currentNumberOfParameters => {#>
 <# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentParameterNumber => {#>
 
         /// <summary>

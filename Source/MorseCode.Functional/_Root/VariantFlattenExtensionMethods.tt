@@ -48,7 +48,7 @@ namespace MorseCode.Functional
     public static class VariantFlattenExtensionMethods
     {
         #region Public Methods and Operators
-<# Enumerable.Range(2, 8 - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(2, MaximumNumberOfParametersForVariantFlatten - 1).ToList().ForEach(currentNumberOfParameters => {#>
 <# Enumerable.Range(0, GetNumberOfPermutations(currentNumberOfParameters)).ToList().ForEach(currentPermutationIndex => {#>
 
         /// <summary>
