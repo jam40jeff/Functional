@@ -1,0 +1,117 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Globalization" #>
+<#@ include file="Utilities.ttinclude" #><#@ output extension=".cs" #>
+#region License
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="VariantCreateNewExtensionMethods.cs" company="MorseCode Software">
+// Copyright (c) 2015 MorseCode Software
+// </copyright>
+// <summary>
+// The MIT License (MIT)
+// 
+// Copyright (c) 2015 MorseCode Software
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion
+
+namespace MorseCode.Functional
+{
+    using System.Diagnostics.Contracts;
+
+    /// <summary>
+    /// Provides extension methods to create a new variant from an existing one with the same types.
+    /// </summary>
+    public static class VariantCreateNewExtensionMethods
+    {
+        #region Public Methods and Operators
+<# Enumerable.Range(2, MaximumNumberOfParameters - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentParameterNumber => {#>
+
+        /// <summary>
+        /// Creates a new variant (or discriminated union) with <#= GetNumberString(currentNumberOfParameters) #> possible values with a common type
+        /// holding a value of the <#= GetOrdinalString(currentParameterNumber) #> possible variant value from an existing variant value of the same types (which may be <c>null</c>).
+        /// </summary>
+        /// <param name="o">
+        /// The existing variant value of the same types (which may be <c>null</c>) to infer types from.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <typeparam name="T">
+        /// The common type all possible values of the variant (or discriminated union) inherit from or implement.
+        /// </typeparam>
+<# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(n => {#>
+        /// <typeparam name="T<#= n #>">
+        /// The type of the <#= GetOrdinalString(n) #> possible value of the variant (or discriminated union).
+        /// </typeparam>
+<# }); #>
+        /// <returns>
+        /// The <see cref="IVariantWithCommon{T,<#= string.Join(",", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>}"/> holding a value of the <#= GetOrdinalString(currentParameterNumber) #> possible variant value (of type <typeparamref name="T<#= currentParameterNumber #>"/>).
+        /// </returns>
+        public static IVariantWithCommon<T, <#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>> CreateNew<#= CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(currentParameterNumber)) #>WithCommon<T, <#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>(this IVariantWithCommon<T, <#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>> o, T<#= currentParameterNumber #> value)
+<# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(n => {#>
+            where T<#= n #> : T
+<# }); #>
+        {
+            Contract.Ensures(Contract.Result<IVariantWithCommon<T, <#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>>() != null);
+
+            return Variant.<#= CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(currentParameterNumber)) #>WithCommon<T, <#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>(value);
+        }
+<# }); #>
+<# }); #>
+<# Enumerable.Range(2, MaximumNumberOfParameters - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(currentParameterNumber => {#>
+
+        /// <summary>
+        /// Creates a new variant (or discriminated union) with <#= GetNumberString(currentNumberOfParameters) #> possible values
+        /// holding a value of the <#= GetOrdinalString(currentParameterNumber) #> possible variant value from an existing variant value of the same types (which may be <c>null</c>).
+        /// </summary>
+        /// <param name="o">
+        /// The existing variant value of the same types (which may be <c>null</c>) to infer types from.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+<# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(n => {#>
+        /// <typeparam name="T<#= n #>">
+        /// The type of the <#= GetOrdinalString(n) #> possible value of the variant (or discriminated union).
+        /// </typeparam>
+<# }); #>
+        /// <returns>
+        /// The <see cref="IVariant{<#= string.Join(",", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>}"/> holding a value of the <#= GetOrdinalString(currentParameterNumber) #> possible variant value (of type <typeparamref name="T<#= currentParameterNumber #>"/>).
+        /// </returns>
+        public static IVariant<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>> CreateNew<#= CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(currentParameterNumber)) #><<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>(this IVariant<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>> o, T<#= currentParameterNumber #> value)
+        {
+            Contract.Ensures(Contract.Result<IVariant<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>>() != null);
+
+            return Variant.<#= CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(currentParameterNumber)) #><<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>(value);
+        }
+<# }); #>
+<# }); #>
+
+        #endregion
+    }
+}

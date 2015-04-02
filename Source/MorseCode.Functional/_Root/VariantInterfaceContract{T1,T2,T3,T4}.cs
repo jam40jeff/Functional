@@ -1,7 +1,7 @@
 ﻿#region License
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IMaybe{T}.cs" company="MorseCode Software">
+// <copyright file="VariantInterfaceContract{T1,T2,T3,T4}.cs" company="MorseCode Software">
 // Copyright (c) 2015 MorseCode Software
 // </copyright>
 // <summary>
@@ -33,44 +33,42 @@
 namespace MorseCode.Functional
 {
     using System;
+    using System.Diagnostics.Contracts;
 
-    /// <summary>
-    /// An interface representing an instance which may or may not have a value.
-    /// </summary>
-    /// <typeparam name="T">
-    /// The type of the value.
-    /// </typeparam>
-    public interface IMaybe<out T>
+    [ContractClassFor(typeof(IVariant<,,,>))]
+    internal abstract class VariantInterfaceContract<T1, T2, T3, T4> : IVariant<T1, T2, T3, T4>
     {
-        #region Public Methods and Operators
+        #region Explicit Interface Properties
 
-        /// <summary>
-        /// Executes an action based on whether or not the instance has a value.
-        /// </summary>
-        /// <param name="hasValueAction">
-        /// The action to run if the instance has a value.
-        /// </param>
-        /// <param name="nothingAction">
-        /// The action to run if the instance does not have a value.
-        /// </param>
-        void Match(Action<T> hasValueAction, Action nothingAction);
+        object IVariantWithCommon<object>.Value
+        {
+            get
+            {
+                return null;
+            }
+        }
 
-        /// <summary>
-        /// Executes an function based on whether or not the instance has a value.
-        /// </summary>
-        /// <param name="hasValueFunc">
-        /// The function to run if the instance has a value.
-        /// </param>
-        /// <param name="nothingFunc">
-        /// The function to run if the instance does not have a value.
-        /// </param>
-        /// <typeparam name="TResult">
-        /// The return type of the function.
-        /// </typeparam>
-        /// <returns>
-        /// The result of type <typeparamref name="TResult"/> of the function executed.
-        /// </returns>
-        TResult Match<TResult>(Func<T, TResult> hasValueFunc, Func<TResult> nothingFunc);
+        #endregion
+
+        #region Explicit Interface Methods
+
+        void IVariantWithCommon<object, T1, T2, T3, T4>.Match(Action<T1> first, Action<T2> second, Action<T3> third, Action<T4> fourth)
+        {
+        }
+
+        TResult IVariantWithCommon<object, T1, T2, T3, T4>.Match<TResult>(Func<T1, TResult> first, Func<T2, TResult> second, Func<T3, TResult> third, Func<T4, TResult> fourth)
+        {
+            return default(TResult);
+        }
+
+        void IVariantWithCommon<object, T1, T2, T3, T4>.MatchSome(Action otherwise, Action<T1> first, Action<T2> second, Action<T3> third, Action<T4> fourth)
+        {
+        }
+
+        TResult IVariantWithCommon<object, T1, T2, T3, T4>.MatchSome<TResult>(Func<TResult> otherwise, Func<T1, TResult> first, Func<T2, TResult> second, Func<T3, TResult> third, Func<T4, TResult> fourth)
+        {
+            return default(TResult);
+        }
 
         #endregion
     }

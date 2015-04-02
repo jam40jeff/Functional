@@ -32,20 +32,129 @@
 
 namespace MorseCode.Functional
 {
+    using System;
+
+    using MorseCode.FrameworkExtensions;
+
+    /// <summary>
+    /// A factory class for creating <see cref="IMaybe{T}"/> instances.
+    /// </summary>
     public static class Maybe
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Creates an <see cref="IMaybe{T}"/> with a value of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <typeparam name="T">
+        /// The type of the value held by this <see cref="IMaybe{T}"/>.
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IMaybe{T}"/> with the value <paramref name="value"/>.
+        /// </returns>
         public static IMaybe<T> Just<T>(T value)
         {
-            return new Maybe<T>(value);
+            return new JustClass<T>(value);
         }
 
+        /// <summary>
+        /// Creates an <see cref="IMaybe{T}"/> with no value.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type of the value held by this <see cref="IMaybe{T}"/>.
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IMaybe{T}"/> with no value.
+        /// </returns>
         public static IMaybe<T> Nothing<T>()
         {
-            return Maybe<T>.Nothing;
+            return NothingClass<T>.Value;
         }
 
         #endregion
+
+        private class JustClass<T> : IMaybe<T>
+        {
+            #region Fields
+
+            private readonly T value;
+
+            #endregion
+
+            #region Constructors and Destructors
+
+            internal JustClass(T value)
+            {
+                this.value = value;
+            }
+
+            #endregion
+
+            #region Public Methods and Operators
+
+            public override string ToString()
+            {
+                return "Just: " + this.value.SafeToString();
+            }
+
+            #endregion
+
+            #region Explicit Interface Methods
+
+            void IMaybe<T>.Match(Action<T> hasValueAction, Action nothingAction)
+            {
+                hasValueAction(this.value);
+            }
+
+            TResult IMaybe<T>.Match<TResult>(Func<T, TResult> hasValueFunc, Func<TResult> nothingFunc)
+            {
+                return hasValueFunc(this.value);
+            }
+
+            #endregion
+        }
+
+        private class NothingClass<T> : IMaybe<T>
+        {
+            #region Static Fields
+
+            public static readonly NothingClass<T> Value = new NothingClass<T>();
+
+            #endregion
+
+            #region Constructors and Destructors
+
+            private NothingClass()
+            {
+            }
+
+            #endregion
+
+            #region Public Methods and Operators
+
+            public override string ToString()
+            {
+                return "Nothing";
+            }
+
+            #endregion
+
+            #region Explicit Interface Methods
+
+            void IMaybe<T>.Match(Action<T> hasValueAction, Action nothingAction)
+            {
+                nothingAction();
+            }
+
+            TResult IMaybe<T>.Match<TResult>(Func<T, TResult> hasValueFunc, Func<TResult> nothingFunc)
+            {
+                return nothingFunc();
+            }
+
+            #endregion
+        }
     }
 }

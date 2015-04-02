@@ -151,6 +151,172 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="VariantFlattenExtensionMethods.cs">
+      <DependentUpon>VariantFlattenExtensionMethods.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T}.cs" />
+    <Compile Include="VariantCreateNewExtensionMethods.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VariantCreateNewExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8,T9}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7,T8}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6,T7}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5,T6}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4,T5}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3,T4}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2,T3}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon{T,T1,T2}.cs">
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8,T9}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7,T8}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6,T7}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5,T6}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4,T5}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3,T4}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2,T3}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantInterfaceContract{T1,T2}.cs">
+      <DependentUpon>VariantInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariantWithCommon.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IVariantWithCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8,T9,T10}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8,T9}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7,T8}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6,T7}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5,T6}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4,T5}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3,T4}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2,T3}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IVariant{T1,T2}.cs">
+      <DependentUpon>IVariant.tt</DependentUpon>
+    </Compile>
     <Compile Include="PartiallyApplyExtensionMethod.cs">
       <DependentUpon>PartiallyApplyExtensionMethod.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -167,27 +333,60 @@
       <DependentUpon>CurryExtensionMethod.tt</DependentUpon>
     </Compile>
     <Compile Include="MaybeMonad.cs" />
-    <Compile Include="Maybe{T}.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnion - 2.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnion - 3.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnionContract{TCommon,T1,T2,T3}.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnionContract{TCommon,T1,T2}.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnionExtensionMethods - 2.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnionExtensionMethods - 3.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnionInterfaceContract{TCommon,T1,T2,T3}.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnionInterfaceContract{TCommon,T1,T2}.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnionSimpleInterfaceContract{T1,T2,T3}.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnionSimpleInterfaceContract{T1,T2}.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnion{TCommon,T1,T2,T3}.cs" />
-    <Compile Include="DiscriminatedUnion\DiscriminatedUnion{TCommon,T1,T2}.cs" />
-    <Compile Include="DiscriminatedUnion\IDiscriminatedUnionSimple{T1,T2,T3}.cs" />
-    <Compile Include="DiscriminatedUnion\IDiscriminatedUnionSimple{T1,T2}.cs" />
-    <Compile Include="DiscriminatedUnion\IDiscriminatedUnion{TCommon,T1,T2,T3}.cs" />
-    <Compile Include="DiscriminatedUnion\IDiscriminatedUnion{TCommon,T1,T2}.cs" />
     <Compile Include="FlipExtensionMethod.cs" />
     <Compile Include="IMaybe{T}.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Variant.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Variant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8,T9}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7,T8}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6,T7}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5,T6}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4,T5}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3,T4}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2,T3}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VariantWithCommonInterfaceContract{T,T1,T2}.cs">
+      <DependentUpon>VariantWithCommonInterfaceContract.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
@@ -202,6 +401,30 @@
     <None Include="ComposeExtensionMethod.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ComposeExtensionMethod.cs</LastGenOutput>
+    </None>
+    <None Include="VariantFlattenExtensionMethods.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VariantFlattenExtensionMethods.cs</LastGenOutput>
+    </None>
+    <None Include="VariantCreateNewExtensionMethods.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VariantCreateNewExtensionMethods.cs</LastGenOutput>
+    </None>
+    <None Include="VariantInterfaceContract.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VariantInterfaceContract.cs</LastGenOutput>
+    </None>
+    <None Include="VariantWithCommonInterfaceContract.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VariantWithCommonInterfaceContract.cs</LastGenOutput>
+    </None>
+    <None Include="IVariantWithCommon.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IVariantWithCommon.cs</LastGenOutput>
+    </None>
+    <None Include="IVariant.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IVariant.cs</LastGenOutput>
     </None>
     <None Include="PartiallyApplyExtensionMethod.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -218,6 +441,10 @@
     <None Include="packages.config" />
     <None Include="TemplateFileManager.ttinclude" />
     <None Include="Utilities.ttinclude" />
+    <None Include="Variant.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Variant.cs</LastGenOutput>
+    </None>
     <None Include="_Root.nuspec" />
   </ItemGroup>
   <ItemGroup>

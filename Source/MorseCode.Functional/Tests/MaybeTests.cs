@@ -50,7 +50,7 @@ namespace Tests
         {
             IMaybe<int> a = Maybe.Just(5);
 
-            Assert.AreEqual(5, a.Switch(v => v, () => { throw new InvalidOperationException("A value was expected."); }));
+            Assert.AreEqual(5, a.Match(v => v, () => { throw new InvalidOperationException("A value was expected."); }));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Tests
         {
             IMaybe<int> a = Maybe.Nothing<int>();
 
-            Assert.AreEqual(Unit.Value, a.Switch(v => { throw new InvalidOperationException("No value was expected."); }, () => Unit.Value));
+            Assert.AreEqual(Unit.Value, a.Match(v => { throw new InvalidOperationException("No value was expected."); }, () => Unit.Value));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Tests
             IMaybe<int> c = Maybe.Just(3);
             IMaybe<int> result = from aValue in a from bValue in b from cValue in c select aValue + bValue + cValue;
 
-            Assert.AreEqual(15, result.Switch(v => v, () => { throw new InvalidOperationException("A value was expected."); }));
+            Assert.AreEqual(15, result.Match(v => v, () => { throw new InvalidOperationException("A value was expected."); }));
         }
 
         [Test]
@@ -80,7 +80,7 @@ namespace Tests
             IMaybe<int> c = Maybe.Just(3);
             IMaybe<int> result = from aValue in a from bValue in b from cValue in c select aValue + bValue + cValue;
 
-            Assert.AreEqual(Unit.Value, result.Switch(v => { throw new InvalidOperationException("No value was expected."); }, () => Unit.Value));
+            Assert.AreEqual(Unit.Value, result.Match(v => { throw new InvalidOperationException("No value was expected."); }, () => Unit.Value));
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Tests
             IMaybe<int> c = Maybe.Just(3);
             IMaybe<string> result = from aValue in a from bValue in b from cValue in c select (aValue + bValue + cValue).ToString(CultureInfo.InvariantCulture);
 
-            Assert.AreEqual("15", result.Switch(v => v, () => { throw new InvalidOperationException("A value was expected."); }));
+            Assert.AreEqual("15", result.Match(v => v, () => { throw new InvalidOperationException("A value was expected."); }));
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace Tests
             IMaybe<int> c = Maybe.Just(3);
             IMaybe<string> result = from aValue in a from bValue in b from cValue in c select (aValue + bValue + cValue).ToString(CultureInfo.InvariantCulture);
 
-            Assert.AreEqual(Unit.Value, result.Switch(v => { throw new InvalidOperationException("No value was expected."); }, () => Unit.Value));
+            Assert.AreEqual(Unit.Value, result.Match(v => { throw new InvalidOperationException("No value was expected."); }, () => Unit.Value));
         }
 
         #endregion

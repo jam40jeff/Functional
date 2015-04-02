@@ -1,7 +1,7 @@
 ﻿#region License
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IMaybe{T}.cs" company="MorseCode Software">
+// <copyright file="IVariantWithCommon{T}.cs" company="MorseCode Software">
 // Copyright (c) 2015 MorseCode Software
 // </copyright>
 // <summary>
@@ -32,45 +32,21 @@
 
 namespace MorseCode.Functional
 {
-    using System;
-
     /// <summary>
-    /// An interface representing an instance which may or may not have a value.
+    /// An interface representing a variant (or discriminated union) type which may hold one value of any of multiple types
+    /// all of which inherit from or implement a common type <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">
-    /// The type of the value.
+    /// The common type all possible values of the variant (or discriminated union) inherit from or implement.
     /// </typeparam>
-    public interface IMaybe<out T>
+    public interface IVariantWithCommon<out T>
     {
-        #region Public Methods and Operators
+        #region Public Properties
 
         /// <summary>
-        /// Executes an action based on whether or not the instance has a value.
+        /// Gets the value stored in the variant (or discriminated union) typed as the common type <typeparamref name="T"/>.
         /// </summary>
-        /// <param name="hasValueAction">
-        /// The action to run if the instance has a value.
-        /// </param>
-        /// <param name="nothingAction">
-        /// The action to run if the instance does not have a value.
-        /// </param>
-        void Match(Action<T> hasValueAction, Action nothingAction);
-
-        /// <summary>
-        /// Executes an function based on whether or not the instance has a value.
-        /// </summary>
-        /// <param name="hasValueFunc">
-        /// The function to run if the instance has a value.
-        /// </param>
-        /// <param name="nothingFunc">
-        /// The function to run if the instance does not have a value.
-        /// </param>
-        /// <typeparam name="TResult">
-        /// The return type of the function.
-        /// </typeparam>
-        /// <returns>
-        /// The result of type <typeparamref name="TResult"/> of the function executed.
-        /// </returns>
-        TResult Match<TResult>(Func<T, TResult> hasValueFunc, Func<TResult> nothingFunc);
+        T Value { get; }
 
         #endregion
     }

@@ -1,0 +1,127 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Globalization" #>
+<#@ include file="Utilities.ttinclude" #><#@ output extension=".cs" #>
+#region License
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="VariantFlattenExtensionMethods.cs" company="MorseCode Software">
+// Copyright (c) 2015 MorseCode Software
+// </copyright>
+// <summary>
+// The MIT License (MIT)
+// 
+// Copyright (c) 2015 MorseCode Software
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion
+
+namespace MorseCode.Functional
+{
+    using System;
+    using System.Diagnostics.Contracts;
+
+    /// <summary>
+    /// Provides extension methods to create a new variant from an existing one with the same types.
+    /// </summary>
+    public static class VariantFlattenExtensionMethods
+    {
+        #region Public Methods and Operators
+<# Enumerable.Range(2, 8 - 1).ToList().ForEach(currentNumberOfParameters => {#>
+<# Enumerable.Range(0, GetNumberOfPermutations(currentNumberOfParameters)).ToList().ForEach(currentPermutationIndex => {#>
+
+        /// <summary>
+        /// Flattens a nested variant (or discriminated union) to produce a single variant (or discriminated union).
+        /// </summary>
+        /// <param name="o">
+        /// The variant (or discriminated union) instance to flatten.
+        /// </param>
+<# Enumerable.Range(1, currentNumberOfParameters).ToList().ForEach(n => {#>
+        /// <typeparam name="T<#= n #>">
+        /// The type of the <#= GetOrdinalString(n) #> possible value of the variant (or discriminated union).
+        /// </typeparam>
+<# }); #>
+        /// <returns>
+        /// The flattened variant (or discriminated union).
+        /// </returns>
+        public static IVariant<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>> Flatten<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>(this IVariant<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => IsCurrentPermutationParameterTrue(currentNumberOfParameters, currentPermutationIndex, n - 1) ? ("IVariant<" + string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(i => "T" + i)) + ">") : ("T" + n))) #>> o)
+        {
+            Contract.Requires<ArgumentNullException>(o != null, "o");
+            Contract.Ensures(Contract.Result<IVariant<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>>>() != null);
+
+            IVariant<<#= string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n => "T" + n)) #>> variant = o.Match(<#=
+				string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(n =>
+					IsCurrentPermutationParameterTrue(currentNumberOfParameters, currentPermutationIndex, n - 1) ?
+					("u => u.Match(" + string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(i => (i == 1 ? "v => " : string.Empty) + "Variant." + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(i)) + "<" + string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(j => "T" + j)) + ">" + (i == 1 ? "(v)" : string.Empty)))) + ")" :
+					("Variant." + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(GetOrdinalString(n)) + "<" + string.Join(", ", Enumerable.Range(1, currentNumberOfParameters).Select(i => "T" + i)) + ">")))
+			#>);
+            if (variant == null)
+            {
+                throw new InvalidOperationException("Result may not be null.");
+            }
+
+            return variant;
+        }
+<# }); #>
+<# }); #>
+
+        #endregion
+    }
+}
+<#+
+private readonly Dictionary<int, IReadOnlyList<IReadOnlyList<bool>>> permutationsByNumberOfParameters = new Dictionary<int, IReadOnlyList<IReadOnlyList<bool>>>();
+
+private IReadOnlyList<IReadOnlyList<bool>> GetPermutations(int numberOfParameters)
+{
+	IReadOnlyList<IReadOnlyList<bool>> cachedPermutations;
+	if(permutationsByNumberOfParameters.TryGetValue(numberOfParameters, out cachedPermutations))
+	{
+		return cachedPermutations;
+	}
+
+	if(numberOfParameters == 1)
+	{
+		IReadOnlyList<IReadOnlyList<bool>> permutations = new[] { new[] { true }, new[] { false } };
+		permutationsByNumberOfParameters.Add(numberOfParameters, permutations);
+		return permutations;
+	}
+	else
+	{
+		IReadOnlyList<IReadOnlyList<bool>> permutations = GetPermutations(numberOfParameters - 1);
+		permutations = permutations.SelectMany(p => new[] { new[] { true }.Concat(p).ToArray(), new[] { false }.Concat(p).ToArray() }).ToArray();
+		permutationsByNumberOfParameters.Add(numberOfParameters, permutations);
+		return permutations;
+	}
+}
+
+private int GetNumberOfPermutations(int numberOfParameters)
+{
+	return GetPermutations(numberOfParameters).Count - 1;
+}
+
+private bool IsCurrentPermutationParameterTrue(int numberOfParameters, int currentPermutationIndex, int currentParameterIndex)
+{
+	return GetPermutations(numberOfParameters)[currentPermutationIndex][currentParameterIndex];
+}
+#>
